@@ -12,9 +12,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\WinMain.cpp" />
+    <ClCompile Include="GameMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Constants.h" />
+    <ClInclude Include="Framework\GameMain.h" />
+    <ClInclude Include="Framework\Includes.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4E9F3FEF-14AD-4ED5-8910-EB8FFB6D4F6F}</ProjectGuid>
