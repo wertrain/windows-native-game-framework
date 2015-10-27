@@ -1,6 +1,5 @@
 #include <windows.h>
 #include <time.h>
-#include <stdio.h>
 #include <tchar.h>
 #include <mmsystem.h>
 #pragma comment (lib, "winmm.lib")
@@ -21,7 +20,7 @@ typedef struct GameWindow
 
 DWORD WINAPI GameMainFunc(LPVOID vdParam)
 {
-    GameWindow *gameWindow;
+    GameWindow *gameWindow = static_cast<GameWindow*>(vdParam);
 
     //フレーム数と以前の時間
     DWORD frames = 0, beforeTime;
@@ -37,8 +36,6 @@ DWORD WINAPI GameMainFunc(LPVOID vdParam)
 
     // 乱数ジェネレータ初期化
     srand(static_cast<unsigned>(time(NULL)));
-
-    gameWindow = static_cast<GameWindow*>(vdParam);
     
     // 初期時間の取得
     beforeTime = timeGetTime();
@@ -50,7 +47,7 @@ DWORD WINAPI GameMainFunc(LPVOID vdParam)
         // 現在の時間を取得
         nowTime = timeGetTime();
         // 経過時間を算出
-        progress = nowTime - beforeTime;	
+        progress = nowTime - beforeTime;
         
         // --- ゲーム処理 ---
 
@@ -78,7 +75,7 @@ DWORD WINAPI GameMainFunc(LPVOID vdParam)
         TextOut(gameWindow->hScreenDC, 10, 10, str, lstrlen(str));
 
         // スレッド内で作成された画像を描画
-        hdc = BeginPaint(gameWindow->hWnd,&ps);
+        hdc = BeginPaint(gameWindow->hWnd, &ps);
         BitBlt(hdc, 0, 0,
             gameWindow->size.cx,
             gameWindow->size.cy,
@@ -171,7 +168,7 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
     return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, int nCmdShow) 
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, PSTR /*lpCmdLine*/, int nCmdShow) 
 {
     HWND hwnd;
     WNDCLASSEX winc;
@@ -189,8 +186,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine,
     winc.hCursor = LoadCursor(NULL , IDC_ARROW);
     winc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
     winc.lpszClassName = TEXT("GameFramework");
-
-    printf("%s %d \n", lpCmdLine, nCmdShow, hPrevInstance);
 
     if (!RegisterClassEx(&winc)) return 0;
 
