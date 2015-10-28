@@ -11,13 +11,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Graphics\Bitmap.cpp" />
+    <ClCompile Include="Framework\Graphics\GraphicsBase.cpp" />
+    <ClCompile Include="Framework\Graphics\Primitive.cpp" />
+    <ClCompile Include="Framework\System\ObjectBase.cpp" />
     <ClCompile Include="Framework\WinMain.cpp" />
     <ClCompile Include="GameMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Constants.h" />
     <ClInclude Include="Framework\GameMain.h" />
+    <ClInclude Include="Framework\Graphics\Bitmap.h" />
+    <ClInclude Include="Framework\Graphics\GraphicsBase.h" />
+    <ClInclude Include="Framework\Graphics\Primitive.h" />
     <ClInclude Include="Framework\Includes.h" />
+    <ClInclude Include="Framework\System\ObjectBase.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4E9F3FEF-14AD-4ED5-8910-EB8FFB6D4F6F}</ProjectGuid>
