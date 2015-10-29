@@ -13,6 +13,11 @@ public:
     Bitmap() ;
     virtual ~Bitmap();
 
+    bool CreateFromFile(LPCTSTR filename);
+    void Draw(const HDC hdc, const int x, const int y);
+    void Destroy();
+    void SetTransparentColor(const int color);
+
 protected:
     HBITMAP mHBitmap;
     BITMAP mBitmap;

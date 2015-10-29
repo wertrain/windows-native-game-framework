@@ -25,7 +25,7 @@ DWORD WINAPI GameMainFunc(LPVOID vdParam)
     //フレーム数と以前の時間
     DWORD frames = 0, beforeTime;
     //FPSの表示用
-    WCHAR str[16] = {0};
+    TCHAR str[16] = {0};
     // キーボードの状態を格納
     //BYTE keyTable[256];
 
@@ -192,7 +192,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, PSTR /*lpCm
     DWORD dwStyle = WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX; // ウィンドウの大きさ変更できないように
 
     hwnd = CreateWindowEx(
-        0, TEXT("GameFramework") , TEXT("") ,
+        0, TEXT("GameFramework") , TEXT("Windows Native GameFramework") ,
         dwStyle,
         CW_USEDEFAULT, CW_USEDEFAULT ,
         CW_USEDEFAULT, CW_USEDEFAULT ,
