@@ -9,6 +9,8 @@
 
 namespace Framework {
 
+static bool s_ExitThread = false;
+
 // ゲームウィンドウ構造体
 typedef struct GameWindow
 {
@@ -98,6 +100,8 @@ DWORD WINAPI GameMainFunc(LPVOID vdParam)
         {
             ++frames;
         }
+
+        if (Framework::s_ExitThread) break;
     }
 
     DeleteDC(gameWindow->hScreenDC);
@@ -120,10 +124,17 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
     static HBITMAP hBitmap;
     // スレッドID
     DWORD dwID;
+    // スレッドハンドル
+    static HANDLE hThread;
+    DWORD dwParam;
 
     switch(msg)
     {
-        case WM_DESTROY: 
+        case WM_DESTROY:
+            // スレッドを終了させる
+            Framework::s_ExitThread = true;
+            GetExitCodeThread(hThread, &dwParam);
+            WaitForSingleObject(hThread, INFINITE);
             Destroy();
             PostQuitMessage(0);
             return 0;
@@ -153,7 +164,7 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
             }
 
             //スレッドの作成と実行
-            CreateThread(NULL,          // ハンドルを他のプロセスと共有する場合
+            hThread = CreateThread(NULL,          // ハンドルを他のプロセスと共有する場合
                 0,                      // スタックサイズ(デフォルト:0)
                 Framework::GameMainFunc,// スレッド関数名
                 (LPVOID)&gameWindow,    // スレッドに渡す構造体
